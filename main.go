@@ -2,34 +2,24 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"os"
 )
 
 func main() {
-	do(1)
-	do(2)
-	do(3)
-
-	fmt.Println(isWeekend(time.Now()))
+	doDefer()
 }
 
-func do(x int) {
-	switch x {
-	case 1:
-		fmt.Println("1")
-	case 2:
-		fmt.Println("2")
-	default:
-		fmt.Println("default") 
-	}
+func doDefer() {
+	defer fmt.Println("3")
+	defer fmt.Println("2")
+	fmt.Println("1")
 }
 
-	
-func isWeekend(x time.Time) bool {
-	switch {
-	case x.Weekday() > 0 && x.Weekday() < 6:
-		return false
-	default: 
-		return true
+func openFileDefer() {
+	file, err := os.Open("foo.txt")
+
+	if err != nil {
+		panic(err)
 	}
+	defer file.Close()
 }
